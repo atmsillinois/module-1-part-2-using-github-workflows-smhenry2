@@ -4,6 +4,8 @@ absolute_vorticity = 1.e-5  # 1/s
 relative_humidity = 90.  # %
 potential_intensity = 100.  # m/s
 vertical_wind_shear = 5.  # m/s
+omega_vert_velocity = -0.15  # Pa/s
+du_dy = -1e-6  # 1/s
 
 
 def GPI_EN2004(
@@ -33,6 +35,34 @@ def GPI_EN2004(
     return GPI
 
 
+def GPI_MW2020(
+        absolute_vorticity,
+        vertical_wind_shear,
+        omega_vert_velocity,
+        du_dy
+        ):
+    """This function calculates and returns the dynamic genesis potential
+    index for a tropical cyclone according to Murakami and Wang 2022
+    Ref: Wang and Murakami 2020, Murakami and Wang 2022
+
+    Args:
+        absolute_vorticity (float): absolute vorticity at 850 hPa in 1/s
+        vertical_wind_shear (float): VWS between 850 hPa and 200 hPa in m/s
+        omega_vert_velocity (float): vertical velocity 500 hPa in Pa/s
+        du_dy (float): meridional gradient of zonal wind at 500 hPa in 1/s
+    """
+
+    DGPI = (
+            (2.0+.0*vertical_wind_shear)**(-1.7)
+            * (5.5-du_dy*10**5)**(2.5)
+            * (5.0-20*omega_vert_velocity)**(3.4)
+            * (5.5 + abs(absolute_vorticity*10**5))**(2.4)
+            * np.exp(-11.8) - 1.0
+        )
+
+    return DGPI
+
+
 GPI = GPI_EN2004(
         absolute_vorticity,
         relative_humidity,
@@ -40,3 +70,11 @@ GPI = GPI_EN2004(
         vertical_wind_shear
         )
 print(GPI)
+
+DGPI = GPI_MW2020(
+        absolute_vorticity,
+        vertical_wind_shear,
+        omega_vert_velocity,
+        du_dy
+        )
+print(DGPI)
