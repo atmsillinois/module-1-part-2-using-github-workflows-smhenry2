@@ -1,7 +1,10 @@
-# Create a README.md
+# README
 
-If you need help with `Markdown`, check out [The Markdown Cheatsheet](https://www.markdownguide.org/cheat-sheet/)!
+## Description
+This code defines and tests several genesis potential indices for tropical cyclones.
 
-What should a good README.md look like? Check out these [guidelines](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes).
+## Usage
+Requires numpy
 
-Did you add an open source software license?
+## License
+[GNU General Public License v3.0](https://choosealicense.com/licenses/gpl-3.0/)
