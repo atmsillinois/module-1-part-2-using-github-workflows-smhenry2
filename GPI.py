@@ -31,3 +31,12 @@ def GPI_EN2004(
         )
 
     return GPI
+
+
+GPI = GPI_EN2004(
+        absolute_vorticity,
+        relative_humidity,
+        potential_intensity,
+        vertical_wind_shear
+        )
+print(GPI)
